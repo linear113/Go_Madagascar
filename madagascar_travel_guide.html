@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madagascar 10-Day Travel Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+        }
+        
+        .flight-options {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .flight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .flight-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+        
+        .flight-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .flight-card.recommended {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+            position: relative;
+        }
+        
+        .flight-card.recommended::before {
+            content: "🏆 RECOMMENDED";
+            position: absolute;
+            top: -10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .itinerary {
+            display: grid;
+            gap: 25px;
+        }
+        
+        .day-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .day-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .day-content {
+            padding: 25px;
+        }
+        
+        .hotel-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .hotel-card {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 15px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .hotel-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+        
+        .hotel-card.budget {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+        
+        .hotel-card.mid-range {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+        
+        .hotel-name {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .hotel-price {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .activities {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .activities h4 {
+            color: #495057;
+            margin-bottom: 10px;
+        }
+        
+        .activities ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .activities li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 8px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .cost-summary {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .cost-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .cost-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .cost-card.budget {
+            background: linear-gradient(135deg, #56ab2f 0%, #a8e6cf 100%);
+        }
+        
+        .cost-card.mid-range {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .cost-total {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        
+        .links-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .link-card {
+            background: #667eea;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+        
+        .link-card:hover {
+            background: #5a67d8;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .weather-alert {
+            background: linear-gradient(135deg, #ffa726 0%, #ff7043 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .tips-section {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 25px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .tip-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .day-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .hotel-options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏝️ Madagascar Adventure Guide</h1>
+            <p class="subtitle">Your Complete 10-Day Journey from Beirut | November 2025</p>
+        </div>
+
+        <div class="flight-options">
+            <h2>✈️ Flight Options from Beirut to Antananarivo</h2>
+            <div class="flight-grid">
+                <div class="flight-card recommended">
+                    <h3>Via Abu Dhabi/Dubai</h3>
+                    <p><strong>Airlines:</strong> Emirates, Etihad</p>
+                    <p><strong>Duration:</strong> ~12-15 hours</p>
+                    <p><strong>Cost:</strong> $700-1,100</p>
+                    <p><strong>Why:</strong> Newest route, competitive pricing, good connections</p>
+                </div>
+                <div class="flight-card">
+                    <h3>Via Paris</h3>
+                    <p><strong>Airlines:</strong> Air France, MEA</p>
+                    <p><strong>Duration:</strong> ~15-18 hours</p>
+                    <p><strong>Cost:</strong> $1,140-1,550</p>
+                    <p><strong>Why:</strong> Most frequent, direct CDG-TNR</p>
+                </div>
+                <div class="flight-card">
+                    <h3>Via Istanbul</h3>
+                    <p><strong>Airlines:</strong> Turkish Airlines</p>
+                    <p><strong>Duration:</strong> ~16-20 hours</p>
+                    <p><strong>Cost:</strong> $900-1,300</p>
+                    <p><strong>Why:</strong> Good alternative, reliable service</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="weather-alert">
+            <h3>🌦️ November Weather Alert</h3>
+            <p>Early rainy season begins - expect occasional showers, fewer crowds, lower prices, and excellent wildlife viewing! Pack light rain gear and enjoy the lush landscapes.</p>
+        </div>
+
+        <div class="itinerary">
+            <div class="day-card">
+                <div class="day-header">
+                    <h3>Days 1-2: Antananarivo</h3>
+                    <span>🏛️ Capital Culture & History</span>
+                </div>
+                <div class="day-content">
+                    <p><strong>Focus:</strong> Cultural immersion, city exploration, acclimatization</p>
+                    
+                    <div class="hotel-options">
+                        <div class="hotel-card budget" onclick="window.open('https://www.booking.com/hotel/mg/sakamanga.html', '_blank')">
+                            <div class="hotel-name">🌟 Sakamanga Hotel</div>
+                            <p>City center, colonial charm</p>
+                            <div class="hotel-price">$45-65/night</div>
+                            <small>Walking distance to markets</small>
+                        </div>
+                        <div class="hotel-card mid-range" onclick="window.open('https://www.booking.com/hotel/mg/palissandre.html', '_blank')">
+                            <div class="hotel-name">🌟🌟 Palissandre Hotel</div>
+                            <p>Modern comfort, great location</p>
+                            <div class="hotel-price">$80-120/night</div>
+                            <small>Pool, restaurant, city views</small>
+                        </div>
+                    </div>
+
+                    <div class="activities">
+                        <h4>🎯 Must-Do Activities:</h4>
+                        <ul>
+                            <li>Explore Rova Palace complex & Queen's Palace</li>
+                            <li>Wander through Analakely Market</li>
+                            <li>Visit Avenue of Independence (jacaranda season!)</li>
+                            <li>Tsimbazaza Zoo for lemur introduction</li>
+                            <li>Traditional Malagasy dinner with live music</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">
+                    <h3>Days 3-4: Andasibe-Mantadia</h3>
+                    <span>🐒 Lemur Paradise & Rainforest</span>
+                </div>
+                <div class="day-content">
+                    <p><strong>Focus:</strong> Wildlife viewing, rainforest walks, indri lemur calls</p>
+                    
+                    <div class="hotel-options">
+                        <div class="hotel-card budget" onclick="window.open('https://www.booking.com/hotel/mg/andasibe-hotel.html', '_blank')">
+                            <div class="hotel-name">🌟 Andasibe Hotel</div>
+                            <p>Simple, clean, park proximity</p>
+                            <div class="hotel-price">$40-60/night</div>
+                            <small>5 min walk to park entrance</small>
+                        </div>
+                        <div class="hotel-card mid-range" onclick="window.open('https://www.vakonaforestlodge.com/', '_blank')">
+                            <div class="hotel-name">🌟🌟 Vakona Forest Lodge</div>
+                            <p>Lakeside eco-lodge experience</p>
+                            <div class="hotel-price">$100-150/night</div>
+                            <small>Lemur Island access, guided tours</small>
+                        </div>
+                    </div>
+
+                    <div class="activities">
+                        <h4>🎯 Wildlife Adventures:</h4>
+                        <ul>
+                            <li>Dawn chorus walk to hear indri lemurs</li>
+                            <li>Analamazoatra Special Reserve guided tour</li>
+                            <li>Night walk for mouse lemurs & chameleons</li>
+                            <li>Vakona Lemur Island visit</li>
+                            <li>Orchid photography in humid forests</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">
+                    <h3>Days 5-6: Isalo National Park</h3>
+                    <span>🏔️ Dramatic Landscapes & Natural Pools</span>
+                </div>
+                <div class="day-content">
+                    <p><strong>Focus:</strong> Hiking, swimming in natural pools, sunset photography</p>
+                    
+                    <div class="hotel-options">
+                        <div class="hotel-card budget" onclick="window.open('https://www.booking.com/hotel/mg/orchidee-du-isalo.html', '_blank')">
+                            <div class="hotel-name">🌟 Orchidée du Isalo</div>
+                            <p>Basic comfort, garden setting</p>
+                            <div class="hotel-price">$50-75/night</div>
+                            <small>Near park gate, local atmosphere</small>
+                        </div>
+                        <div class="hotel-card mid-range" onclick="window.open('https://www.isalo-rock-lodge.com/', '_blank')">
+                            <div class="hotel-name">🌟🌟 Isalo Rock Lodge</div>
+                            <p>Stunning rock formations view</p>
+                            <div class="hotel-price">$120-200/night</div>
+                            <small>Infinity pool, luxury tents, spa</small>
+                        </div>
+                    </div>
+
+                    <div class="activities">
+                        <h4>🎯 Adventure Activities:</h4>
+                        <ul>
+                            <li>Piscine Naturelle swimming & relaxation</li>
+                            <li>Cascade des Nymphes waterfall hike</li>
+                            <li>Sunset at Fenêtre de l'Isalo</li>
+                            <li>Ring-tailed lemur spotting</li>
+                            <li>Sandstone canyon exploration</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">
+                    <h3>Days 7-8: Morondava & Baobabs</h3>
+                    <span>🌳 Iconic Trees & Western Culture</span>
+                </div>
+                <div class="day-content">
+                    <p><strong>Focus:</strong> Photography, cultural immersion, coastal relaxation</p>
+                    
+                    <div class="hotel-options">
+                        <div class="hotel-card budget" onclick="window.open('https://www.booking.com/hotel/mg/chez-maggie.html', '_blank')">
+                            <div class="hotel-name">🌟 Chez Maggie Hotel</div>
+                            <p>Beachfront, local charm</p>
+                            <div class="hotel-price">$55-85/night</div>
+                            <small>Beach access, restaurant, tours</small>
+                        </div>
+                        <div class="hotel-card mid-range" onclick="window.open('https://www.booking.com/hotel/mg/kimony-resort.html', '_blank')">
+                            <div class="hotel-name">🌟🌟 Kimony Resort</div>
+                            <p>Modern resort, beach location</p>
+                            <div class="hotel-price">$90-140/night</div>
+                            <small>Pool, spa, organized excursions</small>
+                        </div>
+                    </div>
+
+                    <div class="activities">
+                        <h4>🎯 Iconic Experiences:</h4>
+                        <ul>
+                            <li>Avenue of the Baobabs sunset photography</li>
+                            <li>Baobab Amoureux (Lovers' Baobab) visit</li>
+                            <li>Vezo fishing village cultural tour</li>
+                            <li>Traditional pirogue boat rides</li>
+                            <li>Morondava beach relaxation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="day-card">
+                <div class="day-header">
+                    <h3>Days 9-10: Nosy Be</h3>
+                    <span>🏖️ Tropical Paradise & Marine Life</span>
+                </div>
+                <div class="day-content">
+                    <p><strong>Focus:</strong> Beach relaxation, snorkeling, island culture</p>
+                    
+                    <div class="hotel-options">
+                        <div class="hotel-card budget" onclick="window.open('https://www.booking.com/hotel/mg/home-sweet-home.html', '_blank')">
+                            <div class="hotel-name">🌟 Home Sweet Home</div>
+                            <p>Cozy guesthouse, central location</p>
+                            <div class="hotel-price">$45-70/night</div>
+                            <small>Walking to beach, local vibe</small>
+                        </div>
+                        <div class="hotel-card mid-range" onclick="window.open('https://www.vanila-hotel.com/', '_blank')">
+                            <div class="hotel-name">🌟🌟 Vanila Hotel & Spa</div>
+                            <p>Beachfront luxury, full service</p>
+                            <div class="hotel-price">$150-280/night</div>
+                            <small>Private beach, spa, water sports</small>
+                        </div>
+                    </div>
+
+                    <div class="activities">
+                        <h4>🎯 Island Paradise:</h4>
+                        <ul>
+                            <li>Snorkeling at Nosy Tanikely Marine Reserve</li>
+                            <li>Ylang-ylang plantation tours</li>
+                            <li>Whale shark spotting (November season!)</li>
+                            <li>Hell-Ville market exploration</li>
+                            <li>Sunset sailing around the islands</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cost-summary">
+            <h2>💰 Total Cost Summary (Per Person)</h2>
+            <div class="cost-grid">
+                <div class="cost-card budget">
+                    <h3>💚 Budget Explorer</h3>
+                    <div class="cost-total">$1,850</div>
+                    <p>✈️ Flights: $800</p>
+                    <p>🏨 Hotels: $450</p>
+                    <p>🚗 Transport: $350</p>
+                    <p>🍽️ Food: $150</p>
+                    <p>🎯 Activities: $100</p>
+                </div>
+                <div class="cost-card mid-range">
+                    <h3>⭐ Comfort Traveler</h3>
+                    <div class="cost-total">$3,200</div>
+                    <p>✈️ Flights: $900</p>
+                    <p>🏨 Hotels: $1,100</p>
+                    <p>🚗 Transport: $450</p>
+                    <p>🍽️ Food: $350</p>
+                    <p>🎯 Activities: $400</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="tips-section">
+            <h2>🎁 Money-Saving Tips for Your Group</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>👥 Group Benefits</h4>
+                    <p>Traveling as 4-6 people reduces transport costs by 40-60% per person</p>
+                </div>
+                <div class="tip-card">
+                    <h4>📅 November Advantage</h4>
+                    <p>20-30% lower accommodation rates during shoulder season</p>
+                </div>
+                <div class="tip-card">
+                    <h4>🏨 Smart Accommodation</h4>
+                    <p>Mix budget and mid-range hotels - splurge in Nosy Be, save elsewhere</p>
+                </div>
+                <div class="tip-card">
+                    <h4>✈️ Flight Strategy</h4>
+                    <p>Book via Abu Dhabi route 2-3 months ahead for best prices</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="links-section">
+            <h2>🔗 Essential Booking Links</h2>
+            <div class="links-grid">
+                <a href="https://www.booking.com/searchresults.html?dest_id=-1009381" class="link-card" target="_blank">
+                    🏨 Hotels Madagascar
+                </a>
+                <a href="https://www.go2africa.com/destinations/madagascar" class="link-card" target="_blank">
+                    🦎 Madagascar Tours
+                </a>
+                <a href="https://www.skyscanner.com/routes/beyt/tnra/beirut-to-antananarivo.html" class="link-card" target="_blank">
+                    ✈️ Flight Comparison
+                </a>
+                <a href="https://madagascar-tourisme.com/en/" class="link-card" target="_blank">
+                    📸 Official Tourism
+                </a>
+                <a href="https://www.lonelyplanet.com/madagascar" class="link-card" target="_blank">
+                    📚 Travel Guide
+                </a>
+                <a href="https://travel.state.gov/content/travel/en/traveladvisories/traveladvisories/madagascar-travel-advisory.html" class="link-card" target="_blank">
+                    ⚠️ Safety Updates
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add interactive hover effects
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.hotel-card, .day-card, .flight-card');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Cost calculator functionality
+            let selectedBudget = 'budget';
+            
+            const budgetCards = document.querySelectorAll('.cost-card');
+            budgetCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    budgetCards.forEach(c => c.style.opacity = '0.7');
+                    this.style.opacity = '1';
+                    this.style.transform = 'scale(1.05)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
